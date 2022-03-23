@@ -3,12 +3,8 @@ provider "aws" {
     region = "ap-northeast-2"
 }
 
-resource "aws_iam_group" "bohyun-tf-group" {
-    count = 2
-    name = "bohyun-tf-group-${count.index}"
-}
-
-resource "aws_iam_user" "bohyun-tf-test" {
-    for_each = toset(["bohyun-tf-test", "tf-test"])
-    name = each.key
+module "iam-module" {
+    source = "./practice-module"
+    team_count = 2
+    user_list = ["test1", "test2"]
 }
